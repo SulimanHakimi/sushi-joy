@@ -7,27 +7,27 @@ export default function TermsOfService() {
         <LegalLayout title="Allgemeine Geschäftsbedingungen">
             <h2>1. Geltungsbereich</h2>
             <p>
-                Für alle Geschäftsbeziehungen zwischen Sushi Joy Gourmet GmbH und den Kunden gelten ausschließlich die nachfolgenden Allgemeinen Geschäftsbedingungen in ihrer zum Zeitpunkt der Bestellung gültigen Fassung.
+                Für alle Geschäftsbeziehungen zwischen der Sushi Joy Gourmet GmbH und dem Kunden gelten ausschließlich die nachfolgenden Allgemeinen Geschäftsbedingungen in ihrer zum Zeitpunkt der Bestellung gültigen Fassung.
             </p>
 
             <h2>2. Vertragsschluss</h2>
             <p>
-                Die Präsentation der Produkte auf unserer Website stellt kein rechtlich bindendes Angebot, sondern einen unverbindlichen Online-Katalog dar. Durch Anklicken des Buttons zur Bestellung geben Sie eine verbindliche Bestellung der im Warenkorb enthaltenen Waren ab.
+                Die Darstellung der Produkte im Online-Shop stellt kein rechtlich bindendes Angebot, sondern einen unverbindlichen Online-Katalog dar. Durch Anklicken des Buttons „Kaufen“ / „Kostenpflichtig bestellen“ geben Sie eine verbindliche Bestellung der im Warenkorb enthaltenen Waren ab.
             </p>
 
             <h2>3. Lieferung und Verfügbarkeit</h2>
             <p>
-                Sollte ein bestelltes Produkt nicht verfügbar sein, werden wir Sie unverzüglich informieren. Bereits erhaltene Gegenleistungen werden in diesem Fall unverzüglich zurückerstattet.
+                Sollte ein bestelltes Produkt nicht verfügbar sein, werden wir Sie unverzüglich informieren. Bereits erhaltene Gegenleistungen werden wir unverzüglich zurückerstatten.
             </p>
 
             <h2>4. Preise und Versandkosten</h2>
             <p>
-                Alle Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer. Eventuell anfallende Versandkosten werden im Rahmen des Bestellvorgangs deutlich ausgewiesen.
+                Alle Preise enthalten die gesetzliche Mehrwertsteuer. Soweit Versandkosten anfallen, werden diese im Bestellvorgang deutlich ausgewiesen.
             </p>
 
             <h2>5. Eigentumsvorbehalt</h2>
             <p>
-                Die gelieferte Ware bleibt bis zur vollständigen Bezahlung im Eigentum von Sushi Joy Gourmet GmbH.
+                Die gelieferte Ware bleibt bis zur vollständigen Bezahlung im Eigentum der Sushi Joy Gourmet GmbH.
             </p>
 
             <h2>6. Widerrufsrecht</h2>

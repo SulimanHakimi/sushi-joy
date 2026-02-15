@@ -5,45 +5,25 @@ import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 
 export default function LegalLayout({ title, children }) {
-    return (
-        <div className="legal-page">
-            <nav className="legal-nav glass">
-                <div className="container">
-                    <Link href="/" className="back-link">
-                        <FaArrowLeft style={{ marginRight: '8px' }} /> Zurück zur Startseite
-                    </Link>
-                    <div className="logo"><span className="logo-accent">SUSHI</span> JOY</div>
-                </div>
-            </nav>
+  return (
+    <div className="legal-page">
 
-            <main className="container legal-content fade-in">
-                <h1 className="section-title">{title}</h1>
-                <div className="content-box glass">
-                    {children}
-                </div>
-            </main>
 
-            <style jsx>{`
+      <main className="container legal-content fade-in">
+        <h1 className="section-title">{title}</h1>
+        <div className="content-box glass">
+          {children}
+        </div>
+      </main>
+
+      <style jsx>{`
         .legal-page {
           min-height: 100vh;
           padding-top: 100px;
           padding-bottom: 50px;
         }
 
-        .legal-nav {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          z-index: 1000;
-          padding: 1rem 0;
-        }
 
-        .legal-nav .container {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
 
         .back-link {
           color: var(--text-muted);
@@ -101,6 +81,6 @@ export default function LegalLayout({ title, children }) {
           margin-bottom: 0.5rem;
         }
       `}</style>
-        </div>
-    );
+    </div>
+  );
 }

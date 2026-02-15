@@ -12,34 +12,28 @@ const playfair = Playfair_Display({
 })
 
 export const metadata = {
-  metadataBase: new URL('https://sushijoy.com'),
-  title: 'Sushi Joy | Premium Supermarkt Sushi - Täglich Frisch',
-  description: 'Erleben Sie feinstes Supermarkt-Sushi mit Sushi Joy. Frisch zubereitet, authentische japanische Aromen und Zutaten höchster Qualität. Finden Sie uns in Ihrem lokalen Supermarkt.',
-
-  keywords: 'sushi, frisches sushi, supermarkt sushi, sushi joy, maki, nigiri, sashimi, japanisches essen, gesundes essen, oelde, erwitte, paderborn, ahlen, sendenhorst, sassenberg',
+  metadataBase: new URL('https://sushijoy.de'),
+  title: 'Sushi Joy | Bestes Supermarkt Sushi in Deutschland',
+  description: 'Erlebe erstklassiges Sushi im Supermarkt mit Sushi Joy. Täglich frisch zubereitet, authentische japanische Zutaten. Finde uns in Oelde, Paderborn, Erwitte und Umgebung.',
+  keywords: 'Sushi Joy, Supermarkt Sushi, Frisches Sushi, Sushi kaufen, Sushi Oelde, Sushi Paderborn, Sushi Erwitte, Sushi Ahlen, Sushi Sendenhorst, Sushi Sassenberg, Japanisches Essen, Maki, Nigiri, Sashimi',
   openGraph: {
     title: 'Sushi Joy | Premium Supermarkt Sushi',
-    description: 'Frisch zubereitet, authentische japanische Aromen, geliefert in Ihren lokalen Supermarkt.',
-    url: 'https://sushijoy.com',
+    description: 'Täglich frisch gerolltes Sushi in deinem lokalen Supermarkt. Entdecke Qualität und Frische.',
+    url: 'https://sushijoy.de',
     siteName: 'Sushi Joy',
-    images: [
-      {
-        url: '/og-image.jpg', // Should create or provide
-        width: 1200,
-        height: 630,
-      },
-    ],
     locale: 'de_DE',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sushi Joy',
-    description: 'Frisch zubereitet, authentische japanische Aromen, geliefert in Ihren lokalen Supermarkt.',
+    title: 'Sushi Joy - Frisches Sushi im Supermarkt',
+    description: 'Dein tägliches Stück Japan. Frisch, lecker und direkt um die Ecke.',
   },
 }
 
-import CookieConsent from '@/components/CookieConsent'
+import CookieConsent from '@/components/CookieConsent';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function RootLayout({ children }) {
   return (
@@ -50,26 +44,28 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Restaurant",
+              "@type": "FoodEstablishment",
               "name": "Sushi Joy",
-              "image": "https://sushijoy.com/logo.png",
-              "description": "Premium Supermarkt Sushi, jeden Tag frisch zubereitet.",
+              "image": "https://sushijoy.de/logo.png",
+              "description": "Premium Supermarkt Sushi, täglich frisch zubereitet.",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Warendorferstr. 16",
                 "addressLocality": "Oelde",
-                "addressRegion": "NRW",
                 "postalCode": "59302",
                 "addressCountry": "DE"
               },
-              "servesCuisine": "Japanese, Sushi",
-              "priceRange": "$$"
+              "servesCuisine": "Sushi, Japanese",
+              "priceRange": "€€",
+              "areaServed": ["Oelde", "Paderborn", "Erwitte", "Ahlen", "Sendenhorst", "Sassenberg"]
             })
           }}
         />
       </head>
       <body className={`${outfit.variable} ${playfair.variable}`} suppressHydrationWarning={true}>
+        <Navbar />
         {children}
+        <Footer />
         <CookieConsent />
       </body>
     </html>

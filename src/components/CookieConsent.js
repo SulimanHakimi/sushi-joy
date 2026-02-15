@@ -4,37 +4,37 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function CookieConsent() {
-    const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-    useEffect(() => {
-        const consent = localStorage.getItem('cookie-consent');
-        if (!consent) {
-            setIsVisible(true);
-        }
-    }, []);
+  useEffect(() => {
+    const consent = localStorage.getItem('cookie-consent');
+    if (!consent) {
+      setIsVisible(true);
+    }
+  }, []);
 
-    const acceptCookies = () => {
-        localStorage.setItem('cookie-consent', 'accepted');
-        setIsVisible(false);
-    };
+  const acceptCookies = () => {
+    localStorage.setItem('cookie-consent', 'accepted');
+    setIsVisible(false);
+  };
 
-    if (!isVisible) return null;
+  if (!isVisible) return null;
 
-    return (
-        <div className="cookie-banner glass">
-            <div className="container banner-content">
-                <div className="text-content">
-                    <p>
-                        Wir verwenden Cookies, um Ihr Erlebnis zu verbessern. Durch die weitere Nutzung unserer Website stimmen Sie der Verwendung von Cookies zu.
-                        Weitere Informationen finden Sie in unserer <Link href="/cookie-policy" className="policy-link">Cookie-Richtlinie</Link>.
-                    </p>
-                </div>
-                <div className="actions">
-                    <button className="btn btn-primary" onClick={acceptCookies}>Akzeptieren</button>
-                </div>
-            </div>
+  return (
+    <div className="cookie-banner glass">
+      <div className="container banner-content">
+        <div className="text-content">
+          <p>
+            Wir nutzen Cookies, um Ihre Erfahrung zu verbessern. Durch die weitere Nutzung unserer Website stimmen Sie der Verwendung von Cookies zu.
+            Weitere Informationen finden Sie in unserer <Link href="/cookie-policy" className="policy-link">Cookie-Richtlinie</Link>.
+          </p>
+        </div>
+        <div className="actions">
+          <button className="btn btn-primary" onClick={acceptCookies}>Akzeptieren</button>
+        </div>
+      </div>
 
-            <style jsx>{`
+      <style jsx>{`
         .cookie-banner {
           position: fixed;
           bottom: 2rem;
@@ -89,6 +89,6 @@ export default function CookieConsent() {
           }
         }
       `}</style>
-        </div>
-    );
+    </div>
+  );
 }

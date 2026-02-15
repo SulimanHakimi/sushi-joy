@@ -1,95 +1,146 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaArrowLeft, FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
 
 export default function ContactPage() {
-    return (
-        <div className="contact-page">
-            <nav className="contact-nav glass">
-                <div className="container">
-                    <Link href="/" className="back-link">
-                        <FaArrowLeft style={{ marginRight: '8px' }} /> Zurück
-                    </Link>
-                    <div className="logo"><span className="logo-accent">SUSHI</span> JOY</div>
-                </div>
-            </nav>
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [status, setStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-            <section className="contact-hero">
-                <div className="container">
-                    <h1 className="section-title">Kontaktieren Sie uns</h1>
-                    <p className="section-subtitle">Haben Sie Fragen oder Feedback? Wir freuen uns, von Ihnen zu hören.</p>
-                </div>
-            </section>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus(null);
 
-            <section className="contact-content container">
-                <div className="contact-grid">
-                    <div className="contact-info">
-                        <div className="info-item glass">
-                            <FaEnvelope className="icon" />
-                            <div>
-                                <h3>Email</h3>
-                                <p>info@sushijoy.com</p>
-                            </div>
-                        </div>
-                        <div className="info-item glass">
-                            <FaPhone className="icon" />
-                            <div>
-                                <h3>Telefon</h3>
-                                <p>+49 (0) 555 123-4567</p>
-                            </div>
-                        </div>
-                        <div className="info-item glass">
-                            <FaMapMarkerAlt className="icon" />
-                            <div>
-                                <h3>Hauptsitz</h3>
-                                <p>Warendorferstr. 16, 59302 Oelde</p>
-                            </div>
-                        </div>
-                    </div>
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'contact', name, email, message }),
+      });
 
-                    <form className="contact-form glass" onSubmit={(e) => e.preventDefault()}>
-                        <div className="form-group">
-                            <label>Name</label>
-                            <input type="text" placeholder="Geben Sie Ihren Namen ein" className="glass" />
-                        </div>
-                        <div className="form-group">
-                            <label>E-Mail</label>
-                            <input type="email" placeholder="Geben Sie Ihre E-Mail ein" className="glass" />
-                        </div>
-                        <div className="form-group">
-                            <label>Nachricht</label>
-                            <textarea placeholder="Wie können wir Ihnen helfen?" className="glass" rows="5"></textarea>
-                        </div>
-                        <button className="btn btn-primary w-full">
-                            <FaPaperPlane style={{ marginRight: '8px' }} /> Nachricht senden
-                        </button>
-                    </form>
-                </div>
-            </section>
+      const data = await res.json();
 
-            <style jsx>{`
+      if (res.ok) {
+        setStatus({ type: 'success', message: 'Nachricht erfolgreich gesendet!' });
+        setName('');
+        setEmail('');
+        setMessage('');
+      } else {
+        setStatus({ type: 'error', message: data.error || 'Etwas ist schief gelaufen.' });
+      }
+    } catch (error) {
+      setStatus({ type: 'error', message: 'Fehler beim Senden der Nachricht.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  return (
+    <div className="contact-page">
+
+
+      <section className="contact-hero">
+        <div className="container">
+          <h1 className="section-title">Kontaktieren Sie uns</h1>
+          <p className="section-subtitle">Haben Sie Fragen oder Feedback? Wir freuen uns, von Ihnen zu hören.</p>
+        </div>
+      </section>
+
+      <section className="contact-content container">
+        <div className="contact-grid">
+          <div className="contact-info">
+            <div className="info-item glass">
+              <FaEnvelope className="icon" />
+              <div>
+                <h3>E-Mail</h3>
+                <p>info@sushijoy.com</p>
+              </div>
+            </div>
+            <div className="info-item glass">
+              <FaPhone className="icon" />
+              <div>
+                <h3>Telefon</h3>
+                <p>+49 (0) 555 123-4567</p>
+              </div>
+            </div>
+            <div className="info-item glass">
+              <FaMapMarkerAlt className="icon" />
+              <div>
+                <h3>Hauptsitz</h3>
+                <p>Warendorferstr. 16, 59302 Oelde, Germany</p>
+              </div>
+            </div>
+            <div className="info-item glass">
+              <FaMapMarkerAlt className="icon" />
+              <div>
+                <h3>Filiale Paderborn</h3>
+                <p>Alisostraße 2, 33106 Paderborn, Germany</p>
+                <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}><FaPhone style={{ marginRight: '5px' }} /> +49 (0) 5251 987-6543</p>
+              </div>
+            </div>
+          </div>
+
+          <form className="contact-form glass" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Name</label>
+              <input
+                type="text"
+                placeholder="Ihr Name"
+                className="glass"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>E-Mail</label>
+              <input
+                type="email"
+                placeholder="Ihre E-Mail-Adresse"
+                className="glass"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Nachricht</label>
+              <textarea
+                placeholder="Wie können wir Ihnen helfen?"
+                className="glass"
+                rows="5"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+              ></textarea>
+            </div>
+            <button className="btn btn-primary w-full" disabled={isSubmitting}>
+              <FaPaperPlane style={{ marginRight: '8px' }} />
+              {isSubmitting ? 'Sende...' : 'Nachricht senden'}
+            </button>
+            {status && (
+              <p className={`status-message ${status.type}`}>
+                {status.message}
+              </p>
+            )}
+
+
+          </form>
+        </div>
+      </section>
+
+      <style jsx>{`
         .contact-page {
           min-height: 100vh;
           padding-top: 100px;
           background: var(--bg-dark);
         }
 
-        .contact-nav {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          z-index: 1000;
-          padding: 1rem 0;
-        }
 
-        .contact-nav .container {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
 
         .back-link {
           color: var(--text-muted);
@@ -174,7 +225,22 @@ export default function ContactPage() {
             grid-template-columns: 1fr;
           }
         }
+        
+        .status-message {
+            margin-top: 1rem;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .status-message.success {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+        .status-message.error {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+        }
       `}</style>
-        </div>
-    );
+    </div>
+  );
 }

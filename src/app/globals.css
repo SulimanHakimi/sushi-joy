@@ -118,13 +118,18 @@ img {
 
 .btn-outline {
   background: transparent;
-  border: 1px solid var(--primary);
-  color: var(--primary);
+  border: 2px solid var(--primary);
+  /* Thicker border for better visibility */
+  color: white;
+  /* White text for better contrast on dark backgrounds */
 }
 
 .btn-outline:hover {
   background: var(--primary);
   color: white;
+  box-shadow: 0 0 15px rgba(255, 87, 34, 0.5);
+  /* Glow effect */
+  border-color: var(--primary);
 }
 
 /* Animations */
