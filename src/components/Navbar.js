@@ -38,9 +38,7 @@ export default function Navbar() {
             <li><Link href="/">Startseite</Link></li>
             <li><Link href="/about">Über uns</Link></li>
             <li><Link href="/products">Unser Sushi</Link></li>
-            <li><Link href="/locations">Standorte</Link></li>
-
-
+            <li><Link href="/partnership">Partner werden</Link></li>
             <li><Link href="/contact">Kontakt</Link></li>
           </ul>
 
@@ -61,7 +59,7 @@ export default function Navbar() {
             <li><Link href="/" onClick={toggleMenu}>Startseite</Link></li>
             <li><Link href="/about" onClick={toggleMenu}>Über uns</Link></li>
             <li><Link href="/products" onClick={toggleMenu}>Unser Sushi</Link></li>
-            <li><Link href="/locations" onClick={toggleMenu}>Standorte</Link></li>
+            <li><Link href="/partnership">Partner werden</Link></li>
 
 
             <li><Link href="/contact" onClick={toggleMenu}>Kontakt</Link></li>

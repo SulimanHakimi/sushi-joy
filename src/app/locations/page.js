@@ -1,197 +1,320 @@
 'use client';
 
-import React, { useState } from 'react';
-import { FaStore, FaPaperPlane, FaMapMarkerAlt } from 'react-icons/fa';
+import React, { useState, useMemo } from 'react';
+import dynamic from 'next/dynamic';
+import { FaStore, FaPaperPlane, FaMapMarkerAlt, FaClock, FaPhoneAlt, FaExternalLinkAlt } from 'react-icons/fa';
+
+// Dynamically import the map component with SSR disabled
+const MapWrapper = dynamic(() => import('@/components/MapWrapper'), { ssr: false });
 
 export default function Locations() {
-    const [filter, setFilter] = useState('All');
-    const [findingLocation, setFindingLocation] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
 
     const locations = [
-        { id: 1, name: 'Sushi Joy @ Oelde', address: 'Warendorferstr. 16, 59302 Oelde, Germany', lat: 51.8262, lng: 8.1364 },
-        { id: 2, name: 'Sushi Joy @ Erwitte', address: 'Wemberweg 4, 59597 Erwitte, Germany', lat: 51.6119, lng: 8.3325 },
-        { id: 3, name: 'Sushi Joy @ Paderborn', address: 'Alisostraße 2, 33106 Paderborn, Germany', lat: 51.7348, lng: 8.7067 },
-        { id: 4, name: 'Sushi Joy @ Ahlen', address: 'Gebrüder-kerkmann-Platz 4, 59227 Ahlen, Germany', lat: 51.7618, lng: 7.8925 },
-        { id: 5, name: 'Sushi Joy @ Sendenhorst', address: 'Osttor 26, 48234 Sendenhorst, Germany', lat: 51.8447, lng: 7.8285 },
-        { id: 6, name: 'Sushi Joy @ Sassenberg', address: 'Von Galen-Straße 21, 48336 Sassenberg, Germany', lat: 51.9897, lng: 8.0416 },
+        {
+            id: 1,
+            city: 'Oelde',
+            name: 'Sushi Joy @ Marktkauf',
+            address: 'Warendorferstr. 16, 59302 Oelde, Germany',
+            lat: 51.8262,
+            lng: 8.1364,
+            hours: 'Mo-Sa: 07:00 - 21:00 Uhr',
+            phone: '+49 2522 123456'
+        },
+        {
+            id: 2,
+            city: 'Erwitte',
+            name: 'Sushi Joy @ EDEKA',
+            address: 'Wemberweg 4, 59597 Erwitte, Germany',
+            lat: 51.6119,
+            lng: 8.3325,
+            hours: 'Mo-Sa: 07:00 - 21:00 Uhr',
+            phone: '+49 2943 987654'
+        },
+        {
+            id: 3,
+            city: 'Paderborn',
+            name: 'Sushi Joy @ Kaufland',
+            address: 'Alisostraße 2, 33106 Paderborn, Germany',
+            lat: 51.7348,
+            lng: 8.7067,
+            hours: 'Mo-Sa: 07:00 - 22:00 Uhr',
+            phone: '+49 5251 555666'
+        },
+        {
+            id: 4,
+            city: 'Ahlen',
+            name: 'Sushi Joy @ Rewe',
+            address: 'Gebrüder-kerkmann-Platz 4, 59227 Ahlen, Germany',
+            lat: 51.7618,
+            lng: 7.8925,
+            hours: 'Mo-Sa: 07:00 - 21:00 Uhr',
+            phone: '+49 2382 444333'
+        },
+        {
+            id: 5,
+            city: 'Sendenhorst',
+            name: 'Sushi Joy @ EDEKA',
+            address: 'Osttor 26, 48234 Sendenhorst, Germany',
+            lat: 51.8447,
+            lng: 7.8285,
+            hours: 'Mo-Sa: 07:00 - 20:00 Uhr',
+            phone: '+49 2526 111222'
+        },
+        {
+            id: 6,
+            city: 'Sassenberg',
+            name: 'Sushi Joy @ Marktkauf',
+            address: 'Von Galen-Straße 21, 48336 Sassenberg, Germany',
+            lat: 51.9897,
+            lng: 8.0416,
+            hours: 'Mo-Sa: 08:00 - 21:00 Uhr',
+            phone: '+49 2583 999888'
+        },
     ];
 
-    const handleFindNearMe = () => {
-        setFindingLocation(true);
-        if (!navigator.geolocation) {
-            alert('Geolokalisierung wird nicht unterstützt.');
-            setFindingLocation(false);
-            return;
-        }
-
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude, longitude } = position.coords;
-                let minDistance = Infinity;
-                let nearest = locations[0];
-
-                const calculateDistance = (lat1, lon1, lat2, lon2) => {
-                    const R = 6371;
-                    const dLat = (lat2 - lat1) * (Math.PI / 180);
-                    const dLon = (lon2 - lon1) * (Math.PI / 180);
-                    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-                    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                };
-
-                locations.forEach((loc) => {
-                    const dist = calculateDistance(latitude, longitude, loc.lat, loc.lng);
-                    if (dist < minDistance) {
-                        minDistance = dist;
-                        nearest = loc;
-                    }
-                });
-
-                // In a real app, we might highlight this location or zoom map to it.
-                // For now, let's just alert or scroll to it.
-                alert(`Nächstgelegener Standort gefunden: ${nearest.name}`);
-                setFindingLocation(false);
-            },
-            () => {
-                setFindingLocation(false);
-                alert('Zugriff auf Standort verweigert.');
-            }
-        );
-    };
-
-    const filteredLocations = filter === 'All'
-        ? locations
-        : locations.filter(loc => loc.address.includes(filter));
+    const selectedLocation = useMemo(() =>
+        locations.find(l => l.id === selectedId) || null,
+        [selectedId]);
 
     return (
         <main className="main-content">
-            <section id="standorte" className="store-locator">
-                <div className="container">
-                    <h2 className="section-title">Besuchen Sie unsere Partner</h2>
-                    <p className="section-subtitle">Durchstöbern Sie unsere Premium-Supermarkt-Standorte oder finden Sie den nächstgelegenen.</p>
+            <section className="locations-layout">
+                <div className="container grid-layout">
+                    {/* Left Side: Map List */}
+                    <div className="list-panel glass">
+                        <div className="panel-header">
+                            <h2>Unsere Standorte</h2>
+                            <p>Premium Sushi in Ihrer Nähe</p>
+                        </div>
 
-                    <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                        <button className="btn btn-primary" onClick={handleFindNearMe} disabled={findingLocation}>
-                            <FaMapMarkerAlt style={{ marginRight: '8px' }} /> {findingLocation ? 'Lokalisiere...' : 'In meiner Nähe finden'}
-                        </button>
-                    </div>
-
-                    <div className="branches-grid">
-                        {filteredLocations.map((loc) => (
-                            <div
-                                key={loc.id}
-                                className="location-card glass"
-                            >
-                                <div className="card-header">
-                                    <FaStore className="store-icon" />
-                                    <div className="card-title-group">
-                                        <h3>{loc.name}</h3>
-                                        <p className="card-address">{loc.address}</p>
+                        <div className="locations-list-scroll">
+                            {locations.map(loc => (
+                                <div
+                                    key={loc.id}
+                                    className={`location-item ${selectedId === loc.id ? 'active' : ''}`}
+                                    onClick={() => setSelectedId(loc.id)}
+                                >
+                                    <div className="item-content">
+                                        <div className="item-header">
+                                            <h3>{loc.city}</h3>
+                                            <span className="badge">{loc.name.split('@')[1] || 'Supermarkt'}</span>
+                                        </div>
+                                        <p className="address">{loc.address}</p>
+                                        <div className="meta-info">
+                                            <span><FaClock className="icon" /> {loc.hours}</span>
+                                            {/* <span><FaPhoneAlt className="icon" /> {loc.phone}</span> */}
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div className="card-actions">
                                     <button
-                                        className="btn-card primary"
-                                        onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.address)}`, '_blank')}
+                                        className="btn-route"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.address)}`, '_blank');
+                                        }}
+                                        title="Route planen"
                                     >
-                                        <FaPaperPlane style={{ marginRight: '8px' }} /> Route planen
+                                        <FaPaperPlane />
                                     </button>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Right Side: Interactive Map */}
+                    <div className="map-panel glass">
+                        <MapWrapper
+                            locations={locations}
+                            selectedLocation={selectedLocation}
+                            onSelectLocation={setSelectedId}
+                        />
                     </div>
                 </div>
             </section>
 
             <style jsx>{`
-        .main-content {
-            padding-top: 80px;
-            min-height: 100vh;
-            background: var(--bg-dark);
-        }
-        .store-locator {
-          background: rgba(255, 87, 34, 0.03);
-          padding: 60px 0;
-        }
-        .branches-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-          gap: 2rem;
-          margin-top: 3rem;
-        }
+                .main-content {
+                    background: var(--bg-dark);
+                    min-height: 100vh;
+                    padding-top: 80px;
+                    display: flex;
+                    flex-direction: column;
+                }
 
-        .location-card {
-          padding: 2rem;
-          border-radius: 20px;
-          transition: var(--transition);
-          position: relative;
-          border: 1px solid var(--glass-border);
-          background: rgba(255, 255, 255, 0.02);
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-        }
+                .locations-layout {
+                    flex: 1;
+                    padding: 2rem 0;
+                    height: calc(100vh - 80px); /* Full viewport height minus nav */
+                    min-height: 600px;
+                }
 
-        .location-card:hover {
-          background: rgba(255, 255, 255, 0.05);
-          transform: translateY(-5px);
-          border-color: var(--primary);
-        }
+                .grid-layout {
+                    display: grid;
+                    grid-template-columns: 400px 1fr;
+                    gap: 2rem;
+                    height: 100%;
+                }
 
-        .card-header {
-          display: flex;
-          align-items: flex-start;
-          gap: 1.2rem;
-          margin-bottom: 2rem;
-        }
+                /* List Panel */
+                .list-panel {
+                    border-radius: 20px;
+                    border: 1px solid var(--glass-border);
+                    background: rgba(20, 20, 20, 0.6);
+                    backdrop-filter: blur(10px);
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+                }
 
-        .card-title-group h3 {
-          font-size: 1.1rem;
-          margin-bottom: 0.3rem;
-          color: white;
-        }
+                .panel-header {
+                    padding: 2rem;
+                    border-bottom: 1px solid var(--glass-border);
+                    background: rgba(255, 255, 255, 0.02);
+                }
 
-        .card-address {
-          font-size: 0.85rem !important;
-          color: var(--text-muted) !important;
-          margin-left: 0 !important;
-          line-height: 1.4;
-        }
+                .panel-header h2 {
+                    font-size: 2rem;
+                    color: white;
+                    margin-bottom: 0.5rem;
+                }
 
-        .store-icon {
-          color: var(--primary);
-          font-size: 1.4rem;
-          margin-top: 3px;
-        }
+                .panel-header p {
+                    color: var(--primary);
+                    font-weight: 500;
+                }
 
-        .card-actions {
-          display: flex;
-          gap: 0.8rem;
-        }
+                .locations-list-scroll {
+                    flex: 1;
+                    overflow-y: auto;
+                    padding: 1rem;
+                }
 
-        .btn-card {
-          flex: 1;
-          padding: 0.7rem;
-          border-radius: 12px;
-          font-size: 0.85rem;
-          font-weight: 700;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: var(--transition);
-        }
+                /* Custom Scrollbar */
+                .locations-list-scroll::-webkit-scrollbar {
+                    width: 6px;
+                }
+                .locations-list-scroll::-webkit-scrollbar-thumb {
+                    background: var(--glass-border);
+                    border-radius: 10px;
+                }
+                .locations-list-scroll::-webkit-scrollbar-track {
+                    background: transparent;
+                }
 
-        .btn-card.primary {
-          background: var(--primary);
-          border: none;
-          color: white;
-        }
+                .location-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 1.2rem;
+                    margin-bottom: 1rem;
+                    border-radius: 12px;
+                    background: rgba(255, 255, 255, 0.03);
+                    border: 1px solid transparent; /* invisible border */
+                    transition: all 0.2s ease;
+                    cursor: pointer;
+                }
 
-        .btn-card:hover {
-          transform: scale(1.02);
-        }
-      `}</style>
+                .location-item:hover {
+                    background: rgba(255, 255, 255, 0.06);
+                }
+
+                .location-item.active {
+                    background: rgba(255, 87, 34, 0.1);
+                    border-color: var(--primary);
+                }
+
+                .item-content {
+                    flex: 1;
+                }
+
+                .item-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 0.3rem;
+                }
+
+                .item-header h3 {
+                    font-size: 1.1rem;
+                    color: white;
+                    margin: 0;
+                }
+
+                .badge {
+                    font-size: 0.7rem;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    background: rgba(255, 255, 255, 0.1);
+                    color: var(--text-muted);
+                }
+
+                .address {
+                    font-size: 0.9rem;
+                    color: var(--text-muted);
+                    margin-bottom: 0.5rem;
+                    line-height: 1.4;
+                }
+
+                .meta-info {
+                    display: flex;
+                    gap: 1rem;
+                    font-size: 0.8rem;
+                    color: var(--text-muted);
+                }
+
+                .meta-info span {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                }
+
+                .icon {
+                    color: var(--primary);
+                }
+
+                .btn-route {
+                    background: rgba(255, 255, 255, 0.1);
+                    border: none;
+                    color: white;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    margin-left: 1rem;
+                    transition: all 0.2s ease;
+                }
+
+                .btn-route:hover {
+                    background: var(--primary);
+                    transform: scale(1.1);
+                }
+
+                /* Map Panel */
+                .map-panel {
+                    border-radius: 20px;
+                    overflow: hidden;
+                    border: 1px solid var(--glass-border);
+                    /* height: 100%; handled by grid */
+                    position: relative;
+                }
+
+                @media (max-width: 1024px) {
+                    .grid-layout {
+                        grid-template-columns: 1fr;
+                        grid-template-rows: auto 500px;
+                        height: auto;
+                    }
+                    .locations-layout {
+                        height: auto;
+                    }
+                    .list-panel {
+                        max-height: 500px;
+                    }
+                }
+            `}</style>
         </main>
     );
 }

@@ -34,10 +34,12 @@ export default function Footer() {
             <h4>Quick Links</h4>
             <ul>
               <li><Link href="/">Home</Link></li>
-              <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/products">Sushi Selection</Link></li>
+              <li><Link href="/about">Über Uns</Link></li>
+              <li><Link href="/products">Produkte</Link></li>
               <li><Link href="/blog">Blog</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
+              <li><Link href="/locations">Standorte</Link></li>
+              <li><Link href="/partnership">Partner werden</Link></li>
+              <li><Link href="/contact">Kontakt</Link></li>
             </ul>
           </div>
 
