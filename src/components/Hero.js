@@ -19,7 +19,7 @@ export default function Hero() {
       </section>
       <style jsx>{`
         .hero {
-          height: 100vh;
+          height: 140vh;
           background: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2000') center/cover no-repeat;
           display: flex;
           align-items: center;

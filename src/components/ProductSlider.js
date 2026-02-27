@@ -40,7 +40,7 @@ export default function ProductSlider() {
                 <span className="card-badge">{product.category}</span>
               </div>
               <div className="card-content">
-                <h3>{product.name}</h3>
+                <Link className='cursor-pinter' href={`/products/${product.slug}`} key={product.id}>{product.name}</Link>
                 <p className="card-price">{product.price} €</p>
 
               </div>

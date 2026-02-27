@@ -83,14 +83,16 @@ export default function Navbar() {
           z-index: 1000;
           padding: 1.5rem 0;
           transition: var(--transition);
+           background: rgba(10, 10, 10, 0.8);
+           border-bottom:1px solid rgba(49, 43, 43, 0.8);
         }
 
-        .nav-scrolled {
-          background: rgba(10, 10, 10, 0.8);
-          backdrop-filter: blur(10px);
-          padding: 1rem 0;
-          border-bottom: 1px solid var(--glass-border);
-        }
+        // .nav-scrolled {
+        //   background: rgba(10, 10, 10, 0.8);
+        //   backdrop-filter: blur(10px);
+        //   padding: 1rem 0;
+        //   border-bottom: 1px solid var(--glass-border);
+        // }
 
         .nav-flex {
           display: flex;
