@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { products as sushiData } from '../../data/products';
+import sushiData from '../../data/products.json';
 
 export default function Products() {
   return (

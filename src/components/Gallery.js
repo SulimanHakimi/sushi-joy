@@ -2,14 +2,7 @@
 
 import React from 'react';
 
-const galleryImages = [
-    '/images/sushi1.jpeg',
-    '/images/sushi2.jpeg',
-    '/images/sushi3.jpeg',
-    '/images/sushi4.jpeg',
-    '/images/sushi5.jpeg',
-    '/images/sushi6.jpeg',
-];
+import galleryImages from '../data/gallery.json';
 
 export default function Gallery() {
     return (

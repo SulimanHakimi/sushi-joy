@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import Link from 'next/link';
 import { FaChevronLeft, FaChevronRight, FaShoppingCart } from 'react-icons/fa';
-import { products } from '../data/products';
+import products from '../data/products.json';
 
 export default function ProductSlider() {
   const scrollRef = useRef(null);
