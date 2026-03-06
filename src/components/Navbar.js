@@ -78,7 +78,6 @@ export default function Navbar() {
             ))}
             <li className="mobile-cta-wrap">
               <Link href="/locations" className="nav-cta" onClick={toggleMenu}>
-                <FaMapMarkerAlt />
                 <span>Hier finden</span>
               </Link>
             </li>
@@ -292,7 +291,6 @@ export default function Navbar() {
         .mobile-nav-links :global(.mobile-active) { color: var(--primary); }
 
         .mobile-cta-wrap {\
-          display:flex;
           margin-top: 1.5rem !important;
         }
 
