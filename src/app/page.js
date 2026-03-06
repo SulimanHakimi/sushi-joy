@@ -12,7 +12,6 @@ export default function Home() {
   return (
     <main className="main-content">
       <Hero />
-      <ValueProps />
       <ProductSlider />
       <Gallery />
       <ReviewsSection />

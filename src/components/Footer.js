@@ -31,14 +31,12 @@ export default function Footer() {
           </div>
 
           <div className="footer-links">
-            <h4>Quick Links</h4>
+            <h4>Auf einen Blick</h4>
             <ul>
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/about">Über Uns</Link></li>
-              <li><Link href="/products">Produkte</Link></li>
+              <li><Link href="/">Startseite</Link></li>
+              <li><Link href="/about">Über uns</Link></li>
+              <li><Link href="/products">Unser Sushi</Link></li>
               <li><Link href="/blog">Blog</Link></li>
-              <li><Link href="/locations">Standorte</Link></li>
-              <li><Link href="/partnership">Partner werden</Link></li>
               <li><Link href="/contact">Kontakt</Link></li>
             </ul>
           </div>
@@ -71,36 +69,37 @@ export default function Footer() {
       </footer>
 
       <style jsx>{`
+        /* ── MOBILE FIRST ── */
         .footer {
           background: #050505;
-          padding: 80px 0 40px;
+          padding: 50px 0 30px;
           border-top: 1px solid var(--glass-border);
         }
 
         .footer-grid {
           display: grid;
-          grid-template-columns: 1.5fr 1fr 1fr 0.8fr 1fr;
+          grid-template-columns: 1fr;
           gap: 2rem;
-          margin-bottom: 4rem;
+          margin-bottom: 2.5rem;
+          text-align: center;
         }
 
         .footer-brand p {
           color: var(--text-muted);
-          margin-top: 1.5rem;
-          max-width: 300px;
+          margin-top: 1rem;
           line-height: 1.6;
         }
 
         .footer h4 {
-          margin-bottom: 1.5rem;
-          font-size: 1.1rem;
+          margin-bottom: 1rem;
+          font-size: 1rem;
           color: white;
         }
 
         .footer-links ul li,
         .footer-blog ul li,
         .footer-locations ul li {
-          margin-bottom: 0.8rem;
+          margin-bottom: 0.7rem;
         }
 
         .footer-links :global(a),
@@ -119,29 +118,29 @@ export default function Footer() {
         }
 
         .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 1rem;
-            color: var(--text-muted);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          margin-bottom: 1rem;
+          color: var(--text-muted);
         }
 
-        .contact-item :global(.icon) {
-            color: var(--primary);
-        }
+        .contact-item :global(.icon) { color: var(--primary); }
 
         .footer-bottom {
           text-align: center;
-          padding-top: 40px;
+          padding-top: 30px;
           border-top: 1px solid var(--glass-border);
           color: var(--text-muted);
-          font-size: 0.9rem;
+          font-size: 0.82rem;
+          line-height: 1.8;
         }
-        
+
         .footer-bottom :global(a) {
-            color: var(--text-muted);
-            margin: 0 5px;
-            text-decoration: none;
+          color: var(--text-muted);
+          margin: 0 4px;
+          text-decoration: none;
         }
 
         .social-link {
@@ -154,15 +153,21 @@ export default function Footer() {
           transform: translateY(-3px);
         }
 
-        @media (max-width: 1024px) {
-          .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+        /* ── TABLET 640px+ ── */
+        @media (min-width: 640px) {
+          .footer-grid { grid-template-columns: 1fr 1fr; text-align: left; }
+          .footer-brand p { max-width: 280px; }
+          .contact-item { justify-content: flex-start; }
+          .social-icons { justify-content: flex-start !important; }
         }
 
-        @media (max-width: 768px) {
-          .footer-grid { grid-template-columns: 1fr; text-align: center; }
-          .footer-brand p { margin-inline: auto; }
-          .social-icons { justify-content: center; }
-          .contact-item { justify-content: center; }
+        /* ── DESKTOP 1024px+ ── */
+        @media (min-width: 1024px) {
+          .footer { padding: 80px 0 40px; }
+          .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 0.8fr 1fr; gap: 1.5rem; margin-bottom: 4rem; }
+          .footer-brand p { max-width: 300px; margin-top: 1.5rem; }
+          .footer h4 { margin-bottom: 1.5rem; font-size: 1.1rem; }
+          .footer-bottom { padding-top: 40px; font-size: 0.9rem; }
         }
       `}</style>
     </>

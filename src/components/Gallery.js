@@ -3,12 +3,15 @@
 import React from 'react';
 
 const galleryImages = [
-    '/images/sushi1.jpeg',
+    '/images/sushi34.jpeg',
+    '/images/sushi31.jpeg',
+    '/images/sushi33.jpeg',
+    '/images/sushi10.jpeg',
+    '/images/sushi14.jpeg',
     '/images/sushi2.jpeg',
-    '/images/sushi3.jpeg',
-    '/images/sushi4.jpeg',
-    '/images/sushi5.jpeg',
-    '/images/sushi6.jpeg',
+    '/images/sushi19.jpeg',
+    '/images/sushi15.jpeg',
+    '/images/sushi6.jpeg'
 ];
 
 export default function Gallery() {

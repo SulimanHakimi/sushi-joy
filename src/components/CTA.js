@@ -36,7 +36,7 @@ export default function CTA() {
 
   return (
     <>
-      <section className="cta-section container">
+      <section className="cta-section">
         <div className="cta-box glass">
           <h2>Hol dir die Freude heute nach Hause</h2>
           <p>Abonniere unseren Newsletter für exklusive Rezepte, Sake-Guides und Neuigkeiten.</p>
@@ -53,47 +53,81 @@ export default function CTA() {
               />
               {status && <p style={{ fontSize: '0.9rem', color: status.type === 'success' ? '#4CAF50' : '#F44336', marginTop: '10px' }}>{status.message}</p>}
             </div>
-            <button type="submit" className="btn btn-primary" disabled={isSubmitting} style={{ height: 'fit-content' }}>
+            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
               <FaPaperPlane style={{ marginRight: '8px', verticalAlign: 'middle' }} /> {isSubmitting ? 'Abonniere...' : 'Abonnieren'}
             </button>
           </form>
         </div>
       </section>
       <style jsx>{`
+        /* ── MOBILE FIRST ── */
+        .cta-section {
+          padding: 0 1.25rem;
+        }
+
         .cta-box {
-          padding: 5rem;
-          border-radius: 40px;
+          padding: 2.5rem 1.25rem;
+          border-radius: 24px;
           text-align: center;
           background: linear-gradient(135deg, rgba(255, 87, 34, 0.1), rgba(0,0,0,0));
-          margin: 80px 0;
+          margin: 40px 0;
         }
 
         .cta-box h2 {
-          font-size: 3.5rem;
-          margin-bottom: 1.5rem;
+          font-size: 1.9rem;
+          margin-bottom: 1rem;
+          line-height: 1.2;
+        }
+
+        .cta-box > p {
+          font-size: 0.95rem;
+          color: var(--text-muted);
+          line-height: 1.6;
         }
 
         .newsletter-form {
-          margin-top: 2rem;
+          margin-top: 1.75rem;
           display: flex;
-          gap: 1rem;
+          flex-direction: column;
+          gap: 0.85rem;
           max-width: 600px;
           margin-inline: auto;
         }
 
         .newsletter-form input {
           flex: 1;
-          padding: 1rem 1.5rem;
+          padding: 1rem 1.25rem;
           border-radius: 50px;
           border: 1px solid var(--glass-border);
           color: white;
           outline: none;
+          width: 100%;
+          font-size: 1rem;
         }
 
-        @media (max-width: 768px) {
-          .cta-box { padding: 3rem 1.5rem; }
-          .cta-box h2 { font-size: 2.2rem; }
-          .newsletter-form { flex-direction: column; }
+        .newsletter-form .btn {
+          width: 100%;
+          padding: 1rem 1.5rem;
+          font-size: 1rem;
+          justify-content: center;
+          display: flex;
+          align-items: center;
+          height: auto !important;
+        }
+
+        /* ── TABLET 600px+ ── */
+        @media (min-width: 600px) {
+          .cta-box { padding: 3.5rem 2rem; border-radius: 32px; margin: 60px 0; }
+          .cta-box h2 { font-size: 2.4rem; }
+          .newsletter-form { flex-direction: row; }
+          .newsletter-form .btn { width: auto; }
+        }
+
+        /* ── DESKTOP 1024px+ ── */
+        @media (min-width: 1024px) {
+          .cta-section { padding: 0 2rem; }
+          .cta-box { padding: 5rem; border-radius: 40px; margin: 80px 0; }
+          .cta-box h2 { font-size: 3.5rem; margin-bottom: 1.5rem; }
         }
       `}</style>
     </>
