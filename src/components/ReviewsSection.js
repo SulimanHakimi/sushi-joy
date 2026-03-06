@@ -56,7 +56,7 @@ export default function ReviewsSection() {
             <style jsx>{`
         .reviews-section {
             padding: 100px 0;
-            background: var(--bg-dark);
+            background: #0d0d0d;
         }
 
         .reviews-grid {

@@ -40,9 +40,10 @@ export default function ProductSlider() {
                 <span className="card-badge">{product.category}</span>
               </div>
               <div className="card-content">
-                <Link className='cursor-pinter' href={`/products/${product.slug}`} key={product.id}>{product.name}</Link>
+                <Link className="cursor-pointer card-title-link" href={`/products/${product.slug}`}>
+                  <h3>{product.name}</h3>
+                </Link>
                 <p className="card-price">{product.price} €</p>
-
               </div>
             </div>
           ))}
@@ -155,6 +156,16 @@ export default function ProductSlider() {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          color: white;
+          transition: var(--transition);
+        }
+        
+        .card-title-link {
+          text-decoration: none;
+        }
+        
+        .card-title-link:hover h3 {
+          color: var(--primary);
         }
 
         .card-price {

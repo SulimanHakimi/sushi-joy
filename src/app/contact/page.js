@@ -46,7 +46,7 @@ export default function ContactPage() {
       <section className="contact-hero">
         <div className="container">
           <h1 className="section-title">Kontaktieren Sie uns</h1>
-          <p className="section-subtitle">Haben Sie Fragen oder Feedback? Wir freuen uns, von Ihnen zu hören.</p>
+          <p className="section-subtitle">Haben Sie Fragen oder Feedback? Wir freuen uns, von Ihnen zu hören</p>
         </div>
       </section>
 
@@ -79,7 +79,6 @@ export default function ContactPage() {
               <div>
                 <h3>Filiale Paderborn</h3>
                 <p>Alisostraße 2, 33106 Paderborn, Germany</p>
-                <p style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}><FaPhone style={{ marginRight: '5px' }} /> +49 (0) 5251 987-6543</p>
               </div>
             </div>
           </div>
@@ -118,7 +117,7 @@ export default function ContactPage() {
                 required
               ></textarea>
             </div>
-            <button className="btn btn-primary w-full" disabled={isSubmitting}>
+            <button className="btn btn-primary w-full" disabled={isSubmitting} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <FaPaperPlane style={{ marginRight: '8px' }} />
               {isSubmitting ? 'Sende...' : 'Nachricht senden'}
             </button>
@@ -206,14 +205,21 @@ export default function ContactPage() {
           width: 100%;
           padding: 1rem;
           border-radius: 12px;
-          border: 1px solid var(--glass-border);
+          border: 2px solid rgba(255, 255, 255, 0.15);
           color: white;
+          background: rgba(255,255,255,0.05);
           outline: none;
           transition: var(--transition);
+        }
+        
+        .form-group input::placeholder, .form-group textarea::placeholder {
+          color: rgba(255, 255, 255, 0.4);
         }
 
         .form-group input:focus, .form-group textarea:focus {
           border-color: var(--primary);
+          background: rgba(255,255,255,0.1);
+          box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.2);
         }
 
         .w-full {

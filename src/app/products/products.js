@@ -10,15 +10,15 @@ export default function Products() {
     <main className="main-content">
       <section className="products">
         <div className="container">
-          <h2 className="section-title">Our Sushi Collection</h2>
-          <p className="text-center">
-            Discover our fresh sushi selection prepared with premium ingredients.
+          <h2 className="section-title">Unser Sushi</h2>
+          <p className="section-subtitle">
+            Entdecken Sie unsere frische Sushi-Auswahl, zubereitet mit Premium-Zutaten.
           </p>
 
           <div className="product-grid">
             {sushiData.map((sushi) => (
               <div key={sushi.id} className="product-card">
-                
+
                 <div className="product-img-wrapper">
                   <img
                     src={sushi.image}
@@ -44,8 +44,8 @@ export default function Products() {
                   <div className="product-footer">
                     <span className="price">{sushi.price} €</span>
 
-                    <Link href={`/products/${sushi.slug}`} className="details-btn">
-                      View
+                    <Link href="#" className="btn-details">
+                      Ansehen
                     </Link>
                   </div>
                 </div>
@@ -60,7 +60,7 @@ export default function Products() {
         .main-content {
           padding-top: 80px;
           min-height: 100vh;
-          background: linear-gradient(180deg,#0f0f0f,#1b1b1b);
+          background: var(--bg-dark);
         }
 
         .products {
@@ -69,15 +69,16 @@ export default function Products() {
 
         .section-title {
           text-align: center;
-          font-size: 2.5rem;
-          font-weight: 800;
-          margin-bottom: 10px;
+          font-size: 3rem;
+          margin-bottom: 3rem;
+          color: var(--primary);
         }
 
         .section-subtitle {
           text-align: center;
-          color: #aaa;
-          margin-bottom: 60px;
+          color: var(--text-muted);
+          max-width: 600px;
+          margin: -2.5rem auto 3rem;
         }
 
         .product-grid {
@@ -121,12 +122,12 @@ export default function Products() {
           position: absolute;
           top: 15px;
           right: 15px;
-          background: #ff4d4d;
+          background: var(--primary);
           color: white;
           padding: 4px 12px;
           font-size: .75rem;
           border-radius: 50px;
-          font-weight: 600;
+          font-weight: 700;
         }
 
         .product-info {
@@ -161,22 +162,24 @@ export default function Products() {
 
         .price {
           font-size: 1.3rem;
-          font-weight: 700;
-          color: #ff4d4d;
+          font-weight: 800;
+          color: var(--primary);
         }
 
-        .details-btn {
-          font-size: .85rem;
-          padding: 6px 14px;
-          background: #ff4d4d;
+        .btn-details {
+          display: inline-block;
+          padding: 0.6rem 1.5rem;
+          border: 1px solid var(--glass-border);
+          border-radius: 50px;
           color: white;
-          border-radius: 6px;
+          font-size: 0.9rem;
           text-decoration: none;
-          transition: .25s;
+          transition: var(--transition);
         }
 
-        .details-btn:hover {
-          background: #ff2b2b;
+        .btn-details:hover {
+          background: white;
+          color: black;
         }
 
       `}</style>
